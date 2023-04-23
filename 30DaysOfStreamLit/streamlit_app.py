@@ -2,6 +2,7 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 import numpy as np
+
 from datetime import time, datetime
 
 # menu options
@@ -12,7 +13,10 @@ options = (
     "Slider", 
     "Line Chart", 
     "Select Box",
-    "Multi-Select")
+    "Multi-Select",
+    "Checkbox",
+    "Profiling",
+    "Latex")
 add_sidebar = st.sidebar.selectbox("Menu Options", options)
 
 if add_sidebar == "Control Statement":
@@ -105,3 +109,28 @@ elif add_sidebar == "Multi-Select":
         ['Yellow', 'Red']
     )
     st.write("You selected: ", options)
+
+elif add_sidebar == "Checkbox":
+    st.header("st.checkbox")
+    st.write("What would you like to order?")
+
+    icecream = st.checkbox("Ice cream")
+    coffee = st.checkbox("Coffee")
+    cola = st.checkbox("Cola")
+
+    output_message = ""
+    if icecream:
+        output_message = "Great! Here's some more icecream"
+    if coffee:
+        output_message = "Okay, here's some coffee"
+    if cola:
+        output_message = "Here you go, more cola"
+    st.write(output_message)
+
+elif add_sidebar == "Latex":
+    st.header("st.latex")
+    st.latex(r'''
+     a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
+     \sum_{k=0}^{n-1} ar^k =
+     a \left(\frac{1-r^{n}}{1-r}\right)
+     ''')
