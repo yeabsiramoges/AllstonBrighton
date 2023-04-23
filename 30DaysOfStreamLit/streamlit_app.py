@@ -2,8 +2,10 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 import numpy as np
+import time
+import datetime
 
-from datetime import time, datetime
+st.set_page_config(layout="wide")
 
 # menu options
 
@@ -18,7 +20,10 @@ options = (
     "Profiling",
     "Latex",
     "Customization",
-    "File Uploader")
+    "File Uploader",
+    "Layout",
+    "Progress",
+    "Form")
 add_sidebar = st.sidebar.selectbox("Menu Options", options)
 
 if add_sidebar == "Control Statement":
@@ -75,14 +80,14 @@ elif add_sidebar == "Slider":
     st.subheader("Range Time Slider")
     appointment = st.slider(
         "Schedule your appointment:",
-        value=(time(11, 30),time(12, 45))
+        value=(datetime.time(11, 30),datetime.time(12, 45))
     )
     st.write("Youre scheduled for:", appointment)
 
     st.subheader("Date-Time Slider")
     start_time = st.slider(
         "When do you start?",
-        value=datetime(2023, 1, 1, 9, 30),
+        value=datetime.datetime(2023, 1, 1, 9, 30),
         format="MM/DD/YY - hh:mm"
     )
     st.write("Start Time: ", start_time)
@@ -167,3 +172,52 @@ elif add_sidebar == "File Uploader":
         st.write(df.describe())
     else:
         st.info("Upload a CSV file")
+
+elif add_sidebar == "Layout":
+    st.title("How to layout a streamlit app")
+    with st.expander("About this app"):
+        st.write("This app shows the ways to layout an app.")
+        st.image('https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png', width=250)
+    
+    st.sidebar.header("Input")
+    user_name = st.sidebar.text_input("What is your name?")
+    user_emoji = st.sidebar.selectbox('Choose an emoji', ['', '😄', '😆', '😊', '😍', '😴', '😕', '😱'])
+    user_food = st.sidebar.selectbox('What is your favorite food?', ['', 'Tom Yum Kung', 'Burrito', 'Lasagna', 'Hamburger', 'Pizza'])
+
+    st.header("Output")
+    column1, column2, column3 = st.columns(3)
+
+    with column1:
+        if user_name != '':
+            st.write(f'👋 Hello {user_name}!')
+        else:
+            st.write('👈  Please enter your **name**!')
+
+    with column2:
+        if user_emoji != '':
+            st.write(f'{user_emoji} is your favorite **emoji**!')
+        else:
+            st.write('👈 Please choose an **emoji**!')
+
+    with column3:
+        if user_food != '':
+            st.write(f'🍴 **{user_food}** is your favorite **food**!')
+        else:
+            st.write('👈 Please choose your favorite **food**!')
+
+elif add_sidebar == "Progress":
+    st.title("st.progress")
+    with st.expander("About"):
+        st.write("Display progress of calculations.")
+    
+    my_bar = st.progress(0)
+    for percent_complete in range(100):
+        time.sleep(0.05)
+        my_bar.progress(percent_complete + 1)
+
+elif add_sidebar == "Form":
+    st.title('st.form')
+    st.header("1. Example of using with notation")
+    st.subheader("Coffee Machine")
+
+    
