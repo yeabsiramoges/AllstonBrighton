@@ -17,7 +17,8 @@ options = (
     "Checkbox",
     "Profiling",
     "Latex",
-    "Customization")
+    "Customization",
+    "File Uploader")
 add_sidebar = st.sidebar.selectbox("Menu Options", options)
 
 if add_sidebar == "Control Statement":
@@ -151,3 +152,18 @@ elif add_sidebar == "Customization":
 
     number = st.sidebar.slider('Select a number:', 0, 10, 5)
     st.write('Selected number from slider widget is:', number)
+
+elif add_sidebar == "File Uploader":
+    st.title("st.file_uploader")
+    st.subheader("Input CSV")
+
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        
+        st.subheader("DataFrame")
+        st.write(df)
+        st.subheader("Descriptive Statistics")
+        st.write(df.describe())
+    else:
+        st.info("Upload a CSV file")
