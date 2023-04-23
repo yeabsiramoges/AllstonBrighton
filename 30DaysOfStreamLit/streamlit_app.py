@@ -2,10 +2,11 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 import numpy as np
+from datetime import time, datetime
 
 # menu options
 
-options = ("Control Statement", "Write")
+options = ("Control Statement", "Write", "Slider")
 add_sidebar = st.sidebar.selectbox("Menu Options", options)
 
 if add_sidebar == "Control Statement":
@@ -18,7 +19,7 @@ if add_sidebar == "Control Statement":
 
 elif add_sidebar == "Write":
     #Text
-    st.write("st.write")
+    st.header("st.write")
 
     #Italics and emojis
     st.write("Hello, *World!* :sunglasses:")
@@ -43,3 +44,32 @@ elif add_sidebar == "Write":
         x = 'a', y = 'b', size='c', color = 'c', tooltip=['a', 'b', 'c']
     )
     st.write(c)
+
+elif add_sidebar == "Slider":
+    st.header("st.slider")
+
+    st.subheader("Slider")
+    age = st.slider("How old are you?", 0, 130, 25)
+    st.write("Im ", age, "years old")
+
+    st.subheader("Range Slider")
+    values = st.slider(
+        "Select a range of values",
+        0.0, 100.0, (25.0, 75.0)
+    )
+    st.write("Values: ", values)
+
+    st.subheader("Range Time Slider")
+    appointment = st.slider(
+        "Schedule your appointment:",
+        value=(time(11, 30),time(12, 45))
+    )
+    st.write("Youre scheduled for:", appointment)
+
+    st.subheader("Date-Time Slider")
+    start_time = st.slider(
+        "When do you start?",
+        value=datetime(2023, 1, 1, 9, 30),
+        format="MM/DD/YY - hh:mm"
+    )
+    st.write("Start Time: ", start_time)
