@@ -28,3 +28,5 @@ def load_data():
     return df_agg, df_agg_sub, df_comments, df_time 
 
 # build dashboard
+
+add_sidebar = st.sidebar.selectbox("Aggregate or Individual Video", ("Aggregate Metrics", "Individual Video Analysis"))
