@@ -6,7 +6,13 @@ from datetime import time, datetime
 
 # menu options
 
-options = ("Control Statement", "Write", "Slider")
+options = (
+    "Control Statement", 
+    "Write", 
+    "Slider", 
+    "Line Chart", 
+    "Select Box",
+    "Multi-Select")
 add_sidebar = st.sidebar.selectbox("Menu Options", options)
 
 if add_sidebar == "Control Statement":
@@ -46,6 +52,7 @@ elif add_sidebar == "Write":
     st.write(c)
 
 elif add_sidebar == "Slider":
+    # Use select slider for choosing days
     st.header("st.slider")
 
     st.subheader("Slider")
@@ -73,3 +80,28 @@ elif add_sidebar == "Slider":
         format="MM/DD/YY - hh:mm"
     )
     st.write("Start Time: ", start_time)
+
+elif add_sidebar == "Line Chart":
+    st.header("Line Chart")
+    chart_data = pd.DataFrame(
+        np.random.randn(20, 3),
+        columns=['a', 'b', 'c']
+    )
+    st.line_chart(chart_data)
+
+elif add_sidebar == "Select Box":
+    st.header("st.selectbox")
+    option = st.selectbox(
+        "What is your favorite color?",
+        ("Blue", "Red", "Green")
+    )
+    st.write("Your favorite color is ", option)
+
+elif add_sidebar == "Multi-Select":
+    st.header("st.multiselect")
+    options = st.multiselect(
+        "What are your favorite colors",
+        ['Green', 'Yellow', 'Red', 'Blue'],
+        ['Yellow', 'Red']
+    )
+    st.write("You selected: ", options)
